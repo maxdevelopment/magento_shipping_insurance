@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Itransition_ShippingInsurance>
+            <version>0.0.1</version>
+        </Itransition_ShippingInsurance>
+    </modules>
+    <global>
+
+    </global>
+</config>
