@@ -1,1 +1,1 @@
-# magento_shipping_insurance
+# Magento 1.9.x
