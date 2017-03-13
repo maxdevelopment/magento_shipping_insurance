@@ -1,0 +1,6 @@
+<?php if ($this->isEnabled()): ?>
+    Add shipping insurance?
+    <input type="checkbox" name="insurance_enabled" value="1" style="vertical-align: bottom;" />
+    <br>
+    <b><?php echo $this->getInsuranceValue(); ?></b>
+<?php endif ?>

@@ -2,10 +2,146 @@
 <config>
     <modules>
         <Itransition_ShippingInsurance>
-            <version>0.0.1</version>
+            <version>0.0.2</version>
         </Itransition_ShippingInsurance>
     </modules>
-    <global>
 
+    <global>
+        <sales>
+            <quote>
+                <totals>
+                    <shipping_insurance>
+                        <class>shipping_insurance/Totals_Quote</class>
+                    </shipping_insurance>
+                </totals>
+            </quote>
+            <order_invoice>
+                <totals>
+                    <shipping_insurance>
+                        <class>shipping_insurance/Totals_Invoice</class>
+                    </shipping_insurance>
+                </totals>
+            </order_invoice>
+            <order_creditmemo>
+                <totals>
+                    <shipping_insurance>
+                        <class>shipping_insurance/Totals_Creditmemo</class>
+                    </shipping_insurance>
+                </totals>
+            </order_creditmemo>
+        </sales>
+        <pdf>
+            <totals>
+                <shipping_insurance>
+                    <title>Order Shipping Insurance</title>
+                    <source_field>shipping_insurance</source_field>
+                    <font_size>6</font_size>
+                    <display_zero>0</display_zero>
+                    <sort_order>300</sort_order>
+                </shipping_insurance>
+            </totals>
+        </pdf>
+        <fieldsets>
+            <sales_convert_quote>
+                <shipping_insurance><to_order>*</to_order></shipping_insurance>
+                <insurance_shipping_method><to_order>*</to_order></insurance_shipping_method>
+                <shipping_value_without_insurance><to_order>*</to_order></shipping_value_without_insurance>
+            </sales_convert_quote>
+
+            <sales_convert_quote_address>
+                <shipping_insurance><to_order_address>*</to_order_address></shipping_insurance>
+                <insurance_shipping_method><to_order_address>*</to_order_address></insurance_shipping_method>
+                <shipping_value_without_insurance><to_order_address>*</to_order_address></shipping_value_without_insurance>
+            </sales_convert_quote_address>
+
+            <sales_convert_order_address>
+                <shipping_insurance><to_quote_address>*</to_quote_address></shipping_insurance>
+                <insurance_shipping_method><to_quote_address>*</to_quote_address></insurance_shipping_method>
+                <shipping_value_without_insurance><to_quote_address>*</to_quote_address></shipping_value_without_insurance>
+            </sales_convert_order_address>
+
+            <sales_convert_order>
+                <shipping_insurance><to_quote>*</to_quote></shipping_insurance>
+                <insurance_shipping_method><to_quote>*</to_quote></insurance_shipping_method>
+                <shipping_value_without_insurance><to_quote>*</to_quote></shipping_value_without_insurance>
+            </sales_convert_order>
+        </fieldsets>
+
+        <blocks>
+            <shipping_insurance_checkout_onepage>
+                <class>Itransition_ShippingInsurance_Block_Checkout_Onepage</class>
+            </shipping_insurance_checkout_onepage>
+
+            <adminhtml>
+                <rewrite>
+                    <sales_order_totals>Itransition_ShippingInsurance_Block_Totals_Adminhtml_SalesOrder</sales_order_totals>
+                    <sales_order_invoice_totals>Itransition_ShippingInsurance_Block_Totals_Adminhtml_SalesOrderInvoice</sales_order_invoice_totals>
+                    <sales_order_creditmemo_totals>Itransition_ShippingInsurance_Block_Totals_Adminhtml_SalesOrderCreditmemo</sales_order_creditmemo_totals>
+                </rewrite>
+            </adminhtml>
+
+
+            <sales>
+                <rewrite>
+                    <order_totals>Itransition_ShippingInsurance_Block_Totals_SalesOrder</order_totals>
+                    <order_invoice_totals>Itransition_ShippingInsurance_Block_Totals_SalesOrderInvoice</order_invoice_totals>
+                    <order_creditmemo_totals>Itransition_ShippingInsurance_Block_Totals_SalesOrderCreditmemo</order_creditmemo_totals>
+                </rewrite>
+            </sales>
+        </blocks>
+        <models>
+            <shipping_insurance>
+                <class>Itransition_ShippingInsurance_Model</class>
+                <resourceModel>shippinginsurance</resourceModel>
+            </shipping_insurance>
+        </models>
+        <resources>
+            <module_insurance_setup>
+                <setup>
+                    <module>Itransition_ShippingInsurance</module>
+                    <class>Mage_Sales_Model_Resource_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </module_insurance_setup>
+            <categoryrestrict_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </categoryrestrict_write>
+            <categoryrestrict_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </categoryrestrict_read>
+        </resources>
+
+        <helpers>
+            <shipping_insurance>
+                <class>Itransition_ShippingInsurance_Helper</class>
+            </shipping_insurance>
+        </helpers>
     </global>
+
+    <frontend>
+        <layout>
+            <updates>
+                <shippinginsurance>
+                    <file>shipping_insurance.xml</file>
+                </shippinginsurance>
+            </updates>
+        </layout>
+        <events>
+            <checkout_controller_onepage_save_shipping_method>
+                <observers>
+                    <shippinginsurancecalc_observer>
+                        <type>singleton</type>
+                        <class>shipping_insurance/observer</class>
+                        <method>setInsurance</method>
+                    </shippinginsurancecalc_observer>
+                </observers>
+            </checkout_controller_onepage_save_shipping_method>
+        </events>
+    </frontend>
 </config>
